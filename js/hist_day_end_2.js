@@ -340,6 +340,6 @@ $(document).ready(function () {
   weekday_addition()
   Printing_to_table()
 
-  // Right_Table_Heading()
-  // Right_Table_Data()
+  Right_Table_Heading()
+  Right_Table_Data()
 })
