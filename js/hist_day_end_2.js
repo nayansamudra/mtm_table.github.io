@@ -242,7 +242,7 @@ function Right_Table_Heading() {
   var keys = Object.keys(strategy_mtm_2);
   var thead = $("<thead></thead>");
   var headerRow = $("<tr></tr>");
-  for (var i = 0; i < keys.length; i++) {
+  for (var i = (keys.length - 1); i >= 0; i--) {
     var th = $("<th class='timestamp'></th>").text(moment(keys[i] * 1000).format('DD-MMM, ddd'));
     headerRow.append(th);
   }
@@ -252,30 +252,37 @@ function Right_Table_Heading() {
 
 // Right Table Data 
 function Right_Table_Data() {
-  var table1 = document.getElementById('Hist_Daily_Data')
+  
   for (var i = 0; i < strategy_array.length; i++) {
     var key = strategy_array[i];
     var headerRow = $("<tr></tr>");
-    for (var j = 0; j < Object.values(strategy_mtm_2).length; j++) {
+    for (var j = (Object.values(strategy_mtm_2).length - 1); j >= 0; j--) {
       var myDict = Object.values(strategy_mtm_2)[j];
       if (myDict.hasOwnProperty(key)) {
         Right_Table_Data_Array.push(myDict[key][0])
       } else {
         Right_Table_Data_Array.push(0)
       }
+    }
+    Final_Right_Table_Data_Array.push(Right_Table_Data_Array)
+    Right_Table_Data_Array = []
+  }
 
-      if (parseFloat(Right_Table_Data_Array[j]) >= 0) {
-        var th = $("<td style='text-align:right;background-color:#c7efcd;color:#276227'></td>").text(Right_Table_Data_Array[j]);
+  var table1 = document.getElementById('Hist_Daily_Data')
+  for (var j = 0; j < Final_Right_Table_Data_Array.length; j++) {
+    var headerRow = $("<tr></tr>");
+    for (var i = 0; i < Final_Right_Table_Data_Array[0].length; i++) {
+      if (parseFloat(Final_Right_Table_Data_Array[j][i]) >= 0) {
+        var th = $("<td style='text-align:right;background-color:#c7efcd;color:#276227'></td>").text(Final_Right_Table_Data_Array[j][i]);
       }
       else {
-        var th = $("<td style='text-align:right;background-color:#fec7d5;color:#823d44'></td>").text(Right_Table_Data_Array[j]);
+        var th = $("<td style='text-align:right;background-color:#fec7d5;color:#823d44'></td>").text(Final_Right_Table_Data_Array[j][i]);
       }
       headerRow.append(th);
     }
     table1.append(headerRow[0])
-    Final_Right_Table_Data_Array.push(Right_Table_Data_Array)
-    Right_Table_Data_Array = []
   }
+
 
   var table = $('#Hist_Daily_Data');
   var newRow = $('<tr>').attr('class', 'totalRow');
@@ -301,8 +308,8 @@ function Right_Table_Data() {
 $(document).ready(function () {
 
   $.ajaxSetup({ async: false }); // to stop async
-  
-  console.log = function () { };
+
+  // console.log = function () { };
 
   // root = 'https://stats.tradingcafeindia.in'
   root = 'https://nayansamudra.github.io/mtm_table.github.io/hist_dayend.txt'
@@ -311,7 +318,7 @@ $(document).ready(function () {
   // $.get(root + route_fetch_hist_dayend, function (data, status) {
   $.get(root, function (data, status) {
     Hist_DayEnd = JSON.parse(data)
-    console.log(Hist_DayEnd)
+    // console.log(Hist_DayEnd)
   }).fail(function (response) {
     console.log('Error: ' + response);
   })
