@@ -170,7 +170,7 @@ function Printing_to_table() {
   var table1 = document.getElementById('Hist_DayEnd_Data')
   for (var j = 0; j < strategy_array.length; j++) {
     var temp = Object.values(All_WeekDay_1[0])[j] + Object.values(All_WeekDay_1[1])[j] + Object.values(All_WeekDay_1[2])[j] + Object.values(All_WeekDay_1[3])[j] + Object.values(All_WeekDay_1[4])[j];
-    var row = `<td>&nbsp;${Object.keys(All_WeekDay_1[0])[j]}</td>
+    var row = `<td>&nbsp;<input type="checkbox" id="${Object.keys(All_WeekDay_1[0])[j]}" name="${Object.keys(All_WeekDay_1[0])[j]}" checked>&nbsp;${Object.keys(All_WeekDay_1[0])[j]}</td>
                <td>${Object.values(All_WeekDay_1[0])[j]}</td>
                <td>${Object.values(All_WeekDay_1[1])[j]}</td>
                <td>${Object.values(All_WeekDay_1[2])[j]}</td>
@@ -361,7 +361,54 @@ function Right_Table_Data() {
   $('.totalRow td').css('text-align', 'right')
 }
 
+// Function updateTotal
+function updateTotal() {
+  $('#Hist_DayEnd_Data #totalRow').remove();
+  var table = $('#Hist_DayEnd_Data');
+  var newRow = $('<tr>').attr('id', 'totalRow');
+  newRow.append($('<th>').text('TOTAL'));
+  for (var i = 1; i <= 6; i++) {
+    var total = 0;
+    // Loop through each row and calculate the sum of the numbers in the current column
+    table.find('tr').each(function () {
+      var isChecked = $(this).find("input[type='checkbox']").prop("checked");
+      if (isChecked) {
+        var column = $(this).find('td:eq(' + i + ')');
+        total += parseFloat(column.text());
+      }
+    });
+    // Create a new cell in the "TOTAL" row with the calculated sum
+    newRow.append($('<td>').text(total));
+  }
+  // Append the "TOTAL" row to the table
+  table.append(newRow);
 
+  $('#totalRow').css('background-color', '#fcd5b4')
+  $('#totalRow td').css('text-align', 'right')
+
+
+  $('#Hist_Daily_Data .totalRow').remove();
+  var table = $('#Hist_Daily_Data');
+  var newRow = $('<tr>').attr('class', 'totalRow');
+  for (var i = 0; i < Final_Right_Table_Data_Array[0].length; i++) {
+    var total = 0;
+    // Loop through each row and calculate the sum of the numbers in the current column
+    table.find('tr').each(function () {
+      if (!$(this).hasClass("fade")) {
+        var column = $(this).find('td:eq(' + i + ')');
+        total += parseFloat(column.text());
+      }
+    });
+    // Create a new cell in the "TOTAL" row with the calculated sum
+    newRow.append($('<td>').text(total));
+  }
+  // Append the "TOTAL" row to the table
+  table.append(newRow);
+
+  $('.totalRow').css('background-color', '#fcd5b4')
+  $('.totalRow td').css('text-align', 'right')
+
+}
 
 $(document).ready(function () {
 
@@ -407,6 +454,21 @@ $(document).ready(function () {
   Right_Table_Heading()
   Right_Table_Data()
 
+  $("#Hist_DayEnd_table input[type='checkbox']").on("change", function () {
+    // console.log('clicked')
+    var $row = $(this).closest("tr");
+    var index = $($row).index();
+    if (!this.checked) {
+      $row.addClass("fade");
+      $('#Hist_Daily_Data tr:eq('+ index +')').addClass("fade")
+    } else {
+      $row.removeClass("fade");
+      $('#Hist_Daily_Data tr:eq('+ index +')').removeClass("fade")
+    }
+
+    updateTotal()
+  });
+
   $('#Account_option').change(() => {
     let Account_option = $('#Account_option').val()
     $('#Hist_DayEnd_Data').empty()
@@ -436,5 +498,20 @@ $(document).ready(function () {
 
     Right_Table_Heading()
     Right_Table_Data()
+
+    $("#Hist_DayEnd_table input[type='checkbox']").on("change", function () {
+      // console.log('clicked')
+      var $row = $(this).closest("tr");
+      var index = $($row).index();
+      if (!this.checked) {
+        $row.addClass("fade");
+        $('#Hist_Daily_Data tr:eq('+ index +')').addClass("fade")
+      } else {
+        $row.removeClass("fade");
+        $('#Hist_Daily_Data tr:eq('+ index +')').removeClass("fade")
+      }
+  
+      updateTotal()
+    });
   })
 })

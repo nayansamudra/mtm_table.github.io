@@ -263,7 +263,7 @@ Style 4
 
 .table-fixed {
   flex-shrink: 0; /* Prevent the fixed table from shrinking */
-  width: 475px; /* Set the width of the fixed table */
+  width: 500px; /* Set the width of the fixed table */
   position: sticky;
   left: 0;
   z-index: 1;
@@ -278,4 +278,8 @@ Style 4
 .scroll-container {
   width: 100%; /* Set the width of the scrollable container */
   overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.fade {
+  opacity: 0.5 !important;
 }
