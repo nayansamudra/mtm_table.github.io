@@ -1,14 +1,35 @@
+function Account_Name() {
+  Acc_Name = []
+  for (var j = 0; j < Hist_DayEnd.length; j++) {
+    Acc_Name.push(Object.keys(JSON.parse(Hist_DayEnd[j][1])))
+  }
+
+  merge_Account = Acc_Name[0]
+  for (var i = 1; i < Acc_Name.length; i++) {
+    var firstAccount = Acc_Name[i]
+    $.merge(merge_Account, firstAccount);
+  }
+  merge_Account.sort()
+  $.unique(merge_Account);
+
+  for (var i = 0; i < merge_Account.length; i++) {
+    $('#Account_option').append(`<option id="dropdown_value_${i + 1}" value="${merge_Account[i]}">Account ${i + 1}</option>`)
+  }
+}
+
 // Strategy MTM function
-function MTM_strategy() {
+function MTM_strategy(Account) {
   // strategy_mtm (ALL DATA) and strategy_mtm_1 (UNDEFINED REMOVED) also removing number value only array is accepted
   for (var j = 0; j < Hist_DayEnd.length; j++) {
     var text = Hist_DayEnd[j][0]
     var key = text;
-    if (JSON.parse(Hist_DayEnd[j][1])['update1']['strategy_mtm'] != undefined) {
-      var a = Object.values(JSON.parse(Hist_DayEnd[j][1])['update1']['strategy_mtm'])[0]
-      if (Array.isArray(a)) {
-        var value_1 = JSON.parse(Hist_DayEnd[j][1])['update1']['strategy_mtm']
-        strategy_mtm_1[key] = value_1;
+    if(JSON.parse(Hist_DayEnd[j][1])[Account] != undefined){
+      if (JSON.parse(Hist_DayEnd[j][1])[Account]['strategy_mtm'] != undefined) {
+        var a = Object.values(JSON.parse(Hist_DayEnd[j][1])[Account]['strategy_mtm'])[0]
+        if (Array.isArray(a)) {
+          var value_1 = JSON.parse(Hist_DayEnd[j][1])[Account]['strategy_mtm']
+          strategy_mtm_1[key] = value_1;
+        }
       }
     }
   }
@@ -99,6 +120,37 @@ function weekday_addition() {
       }
     }
   }
+
+  if(Object.values(weekday_mon).length == 0){
+    for (var i = 0; i < strategy_array.length; i++) {
+      weekday_mon[strategy_array[i]] = 0;
+    }
+  }
+
+  if(Object.values(weekday_tue).length == 0){
+    for (var i = 0; i < strategy_array.length; i++) {
+      weekday_tue[strategy_array[i]] = 0;
+    }
+  }
+
+  if(Object.values(weekday_wed).length == 0){
+    for (var i = 0; i < strategy_array.length; i++) {
+      weekday_wed[strategy_array[i]] = 0;
+    }
+  }
+
+  if(Object.values(weekday_thu).length == 0){
+    for (var i = 0; i < strategy_array.length; i++) {
+      weekday_thu[strategy_array[i]] = 0;
+    }
+  }
+
+  if(Object.values(weekday_fri).length == 0){
+    for (var i = 0; i < strategy_array.length; i++) {
+      weekday_fri[strategy_array[i]] = 0;
+    }
+  }
+  
   All_WeekDay_1.push(weekday_mon)
   All_WeekDay_1.push(weekday_tue)
   All_WeekDay_1.push(weekday_wed)
@@ -252,7 +304,7 @@ function Right_Table_Heading() {
 
 // Right Table Data 
 function Right_Table_Data() {
-  
+
   for (var i = 0; i < strategy_array.length; i++) {
     var key = strategy_array[i];
     var headerRow = $("<tr></tr>");
@@ -318,10 +370,12 @@ $(document).ready(function () {
   // $.get(root + route_fetch_hist_dayend, function (data, status) {
   $.get(root, function (data, status) {
     Hist_DayEnd = JSON.parse(data)
-    // console.log(Hist_DayEnd)
+    console.log(Hist_DayEnd)
   }).fail(function (response) {
     console.log('Error: ' + response);
   })
+
+  Account_Name()
 
   Monday = {}
   Tuesday = {}
@@ -338,7 +392,7 @@ $(document).ready(function () {
   Right_Table_Data_Array = []
   Final_Right_Table_Data_Array = []
 
-  MTM_strategy()
+  MTM_strategy('update1')
   All_Strategy()
 
   weekday_addition()
@@ -346,4 +400,35 @@ $(document).ready(function () {
 
   Right_Table_Heading()
   Right_Table_Data()
+
+  $('#Account_option').change(() => {
+    let Account_option = $('#Account_option').val()
+    $('#Hist_DayEnd_Data').empty()
+    $('#Hist_Daily_table').empty()
+    $('#Hist_Daily_table').append(`<tbody id="Hist_Daily_Data"></tbody>`)
+
+    Monday = {}
+    Tuesday = {}
+    Wednesday = {}
+    Thursday = {}
+    Friday = {}
+
+    strategy_mtm = {}
+    strategy_mtm_1 = {}
+    strategy_mtm_2 = {}
+
+    week_day_table = {}
+    All_WeekDay = []
+    Right_Table_Data_Array = []
+    Final_Right_Table_Data_Array = []
+
+    MTM_strategy(Account_option)
+    All_Strategy()
+
+    weekday_addition()
+    Printing_to_table()
+
+    Right_Table_Heading()
+    Right_Table_Data()
+  })
 })
