@@ -4,12 +4,10 @@ function MTM_strategy() {
   for (var j = 0; j < Hist_DayEnd.length; j++) {
     var text = Hist_DayEnd[j][0]
     var key = text;
-    var value = Hist_DayEnd[j][1]
-    strategy_mtm[key] = value;
     if (JSON.parse(Hist_DayEnd[j][1])['update1']['strategy_mtm'] != undefined) {
       var a = Object.values(JSON.parse(Hist_DayEnd[j][1])['update1']['strategy_mtm'])[0]
       if (Array.isArray(a)) {
-        var value_1 = Hist_DayEnd[j][1]
+        var value_1 = JSON.parse(Hist_DayEnd[j][1])['update1']['strategy_mtm']
         strategy_mtm_1[key] = value_1;
       }
     }
@@ -26,8 +24,8 @@ function MTM_strategy() {
   else if (text == "Thursday") { Thursday[key] = values }
   else if (text == "Friday") { Friday[key] = values }
   for (var i = 1; i < Object.keys(strategy_mtm_1).length; i++) {
-    var currentArray = Object.values(JSON.parse(Object.values(strategy_mtm_1)[i])['update1']['strategy_mtm'])
-    var compareArray = Object.values(JSON.parse(Object.values(strategy_mtm_1)[i - 1])['update1']['strategy_mtm'])
+    var currentArray = Object.values(strategy_mtm_1)[i]
+    var compareArray = Object.values(strategy_mtm_1)[i - 1]
     var key = Object.keys(strategy_mtm_1)[i]
     var values = Object.values(strategy_mtm_1)[i]
     strategy_mtm_2[key] = values
@@ -45,9 +43,9 @@ function MTM_strategy() {
 
 // All strategy
 function All_Strategy() {
-  mergedArray = Object.keys(JSON.parse(Object.values(strategy_mtm_2)[0])['update1']['strategy_mtm'])
+  mergedArray = Object.keys(Object.values(strategy_mtm_2)[0])
   for (var i = 1; i < Object.keys(strategy_mtm_2).length; i++) {
-    var firstArray = Object.keys(JSON.parse(Object.values(strategy_mtm_2)[i])['update1']['strategy_mtm'])
+    var firstArray = Object.keys(Object.values(strategy_mtm_2)[i])
     $.merge(mergedArray, firstArray);
   }
   mergedArray.sort()
@@ -72,7 +70,7 @@ function weekday_addition() {
     for (var j = 0; j < Object.values(strategy_mtm_2).length; j++) {
       var key = Object.keys(strategy_mtm_2)[j]
       day_1 = moment(key * 1000).format('dddd')
-      var myObject = JSON.parse(Object.values(strategy_mtm_2)[j])['update1']['strategy_mtm']
+      var myObject = Object.values(strategy_mtm_2)[j]
       if (myObject.hasOwnProperty(strategy)) {
         var value = myObject[strategy][0];
       }
@@ -259,7 +257,7 @@ function Right_Table_Data() {
     var key = strategy_array[i];
     var headerRow = $("<tr></tr>");
     for (var j = 0; j < Object.values(strategy_mtm_2).length; j++) {
-      var myDict = JSON.parse(Object.values(strategy_mtm_2)[j])['update1']['strategy_mtm'];
+      var myDict = Object.values(strategy_mtm_2)[j];
       if (myDict.hasOwnProperty(key)) {
         Right_Table_Data_Array.push(myDict[key][0])
       } else {
@@ -327,7 +325,6 @@ $(document).ready(function () {
   strategy_mtm = {}
   strategy_mtm_1 = {}
   strategy_mtm_2 = {}
-  strategy_mtm_3 = {}
 
   week_day_table = {}
   All_WeekDay = []
