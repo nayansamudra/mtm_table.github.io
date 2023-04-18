@@ -13,7 +13,13 @@ function Account_Name() {
   $.unique(merge_Account);
 
   for (var i = 0; i < merge_Account.length; i++) {
-    $('#Account_option').append(`<option id="dropdown_value_${i + 1}" value="${merge_Account[i]}">Account ${i + 1}</option>`)
+    if (merge_Account[i] == 'update1') {
+      $('#Account_option').append(`<option id="dropdown_value_${i + 1}" value="${merge_Account[i]}">5 paisa</option>`)
+    } else if (merge_Account[i] == 'update2') {
+      $('#Account_option').append(`<option id="dropdown_value_${i + 1}" value="${merge_Account[i]}">Arham</option>`)
+    } else {
+      $('#Account_option').append(`<option id="dropdown_value_${i + 1}" value="${merge_Account[i]}">Account ${i + 1}</option>`)
+    }
   }
 }
 
@@ -23,7 +29,7 @@ function MTM_strategy(Account) {
   for (var j = 0; j < Hist_DayEnd.length; j++) {
     var text = Hist_DayEnd[j][0]
     var key = text;
-    if(JSON.parse(Hist_DayEnd[j][1])[Account] != undefined){
+    if (JSON.parse(Hist_DayEnd[j][1])[Account] != undefined) {
       if (JSON.parse(Hist_DayEnd[j][1])[Account]['strategy_mtm'] != undefined) {
         var a = Object.values(JSON.parse(Hist_DayEnd[j][1])[Account]['strategy_mtm'])[0]
         if (Array.isArray(a)) {
@@ -121,36 +127,36 @@ function weekday_addition() {
     }
   }
 
-  if(Object.values(weekday_mon).length == 0){
+  if (Object.values(weekday_mon).length == 0) {
     for (var i = 0; i < strategy_array.length; i++) {
       weekday_mon[strategy_array[i]] = 0;
     }
   }
 
-  if(Object.values(weekday_tue).length == 0){
+  if (Object.values(weekday_tue).length == 0) {
     for (var i = 0; i < strategy_array.length; i++) {
       weekday_tue[strategy_array[i]] = 0;
     }
   }
 
-  if(Object.values(weekday_wed).length == 0){
+  if (Object.values(weekday_wed).length == 0) {
     for (var i = 0; i < strategy_array.length; i++) {
       weekday_wed[strategy_array[i]] = 0;
     }
   }
 
-  if(Object.values(weekday_thu).length == 0){
+  if (Object.values(weekday_thu).length == 0) {
     for (var i = 0; i < strategy_array.length; i++) {
       weekday_thu[strategy_array[i]] = 0;
     }
   }
 
-  if(Object.values(weekday_fri).length == 0){
+  if (Object.values(weekday_fri).length == 0) {
     for (var i = 0; i < strategy_array.length; i++) {
       weekday_fri[strategy_array[i]] = 0;
     }
   }
-  
+
   All_WeekDay_1.push(weekday_mon)
   All_WeekDay_1.push(weekday_tue)
   All_WeekDay_1.push(weekday_wed)
