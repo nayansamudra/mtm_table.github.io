@@ -407,7 +407,12 @@ function Printing_to_table() {
 function Right_Table_Heading() {
   var keys = Object.keys(strategy_mtm_2);
   var thead = $("<thead></thead>");
-  var headerRow = $("<tr></tr>");
+  if ($(window).width() > 576) {
+    var headerRow = $("<tr></tr>");
+  }
+  else {
+    var headerRow = $("<tr><th class='timestamp'></th></tr>");
+  }
   for (var i = (keys.length - 1); i >= 0; i--) {
     var th = $("<th class='timestamp'></th>").text(moment(keys[i] * 1000).format('DD-MMM, ddd'));
     headerRow.append(th);
