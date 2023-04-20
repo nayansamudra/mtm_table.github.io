@@ -699,20 +699,24 @@ $(document).ready(function () {
   if ($(window).width() > 576) {
     $('.container-fluid').hide();
     $('.table-container').show();
+    $('body').attr('style', 'overflow-x: hidden !important;font-family: Outfit;')
   }
   else {
     $('.container-fluid').show();
     $('.table-container').hide();
+    $('body').attr('style', 'overflow-x: visible !important;font-family: Outfit;')
   }
 
   $(window).resize(function () {
     if ($(window).width() > 576) {
       $('.container-fluid').hide();
       $('.table-container').show();
+      $('body').attr('style', 'overflow-x: hidden !important;font-family: Outfit;')
     }
     else {
       $('.container-fluid').show();
       $('.table-container').hide();
+      $('body').attr('style', 'overflow-x: visible !important;font-family: Outfit;')
     }
   })
 })
