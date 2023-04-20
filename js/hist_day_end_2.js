@@ -167,7 +167,12 @@ function weekday_addition() {
 // Printing Data to table
 function Printing_to_table() {
   // Printing Monday Data
-  var table1 = document.getElementById('Hist_DayEnd_Data')
+  if ($(window).width() > 576) {
+    var table1 = document.getElementById('Hist_DayEnd_Data')
+  }
+  else {
+    var table1 = document.getElementById('Hist_DayEnd_Data_Mobile')
+  }
   for (var j = 0; j < strategy_array.length; j++) {
     var temp = Object.values(All_WeekDay_1[0])[j] + Object.values(All_WeekDay_1[1])[j] + Object.values(All_WeekDay_1[2])[j] + Object.values(All_WeekDay_1[3])[j] + Object.values(All_WeekDay_1[4])[j];
     var row = `<td>&nbsp;<input type="checkbox" id="${Object.keys(All_WeekDay_1[0])[j]}" name="${Object.keys(All_WeekDay_1[0])[j]}" checked>&nbsp;${Object.keys(All_WeekDay_1[0])[j]}</td>
@@ -180,7 +185,12 @@ function Printing_to_table() {
     table1.innerHTML += row
   }
 
-  var table = $('#Hist_DayEnd_Data');
+  if ($(window).width() > 576) {
+    var table = $('#Hist_DayEnd_Data');
+  }
+  else {
+    var table = $('#Hist_DayEnd_Data_Mobile')
+  }
   var newRow = $('<tr>').attr('id', 'totalRow');
   newRow.append($('<th>').text('TOTAL'));
   for (var i = 1; i <= 6; i++) {
@@ -196,100 +206,198 @@ function Printing_to_table() {
   // Append the "TOTAL" row to the table
   table.append(newRow);
 
-  $("#Hist_DayEnd_Data tr:not(:last)").each(function () {
-    // Get the value of the number columns
-    var num1 = parseFloat($(this).find("td:eq(1)").text());
-    var num2 = parseFloat($(this).find("td:eq(2)").text());
-    var num3 = parseFloat($(this).find("td:eq(3)").text());
-    var num4 = parseFloat($(this).find("td:eq(4)").text());
-    var num5 = parseFloat($(this).find("td:eq(5)").text());
-    var num6 = parseFloat($(this).find("td:eq(6)").text());
+  if ($(window).width() > 576) {
+    $("#Hist_DayEnd_Data tr:not(:last)").each(function () {
+      // Get the value of the number columns
+      var num1 = parseFloat($(this).find("td:eq(1)").text());
+      var num2 = parseFloat($(this).find("td:eq(2)").text());
+      var num3 = parseFloat($(this).find("td:eq(3)").text());
+      var num4 = parseFloat($(this).find("td:eq(4)").text());
+      var num5 = parseFloat($(this).find("td:eq(5)").text());
+      var num6 = parseFloat($(this).find("td:eq(6)").text());
 
-    // Apply styles to number columns based on their values
-    if (num1 < 0) {
-      $(this).find("td:eq(1)").css({
-        "text-align": "right",
-        "background-color": "#fec7d5",
-        "color": "#823d44"
-      });
-    } else {
-      $(this).find("td:eq(1)").css({
-        "text-align": "right",
-        "background-color": "#c7efcd",
-        "color": "#276227"
-      });
-    }
+      // Apply styles to number columns based on their values
+      if (num1 < 0) {
+        $(this).find("td:eq(1)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(1)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
 
-    if (num2 < 0) {
-      $(this).find("td:eq(2)").css({
-        "text-align": "right",
-        "background-color": "#fec7d5",
-        "color": "#823d44"
-      });
-    } else {
-      $(this).find("td:eq(2)").css({
-        "text-align": "right",
-        "background-color": "#c7efcd",
-        "color": "#276227"
-      });
-    }
+      if (num2 < 0) {
+        $(this).find("td:eq(2)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(2)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
 
-    if (num3 < 0) {
-      $(this).find("td:eq(3)").css({
-        "text-align": "right",
-        "background-color": "#fec7d5",
-        "color": "#823d44"
-      });
-    } else {
-      $(this).find("td:eq(3)").css({
-        "text-align": "right",
-        "background-color": "#c7efcd",
-        "color": "#276227"
-      });
-    }
+      if (num3 < 0) {
+        $(this).find("td:eq(3)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(3)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
 
-    if (num4 < 0) {
-      $(this).find("td:eq(4)").css({
-        "text-align": "right",
-        "background-color": "#fec7d5",
-        "color": "#823d44"
-      });
-    } else {
-      $(this).find("td:eq(4)").css({
-        "text-align": "right",
-        "background-color": "#c7efcd",
-        "color": "#276227"
-      });
-    }
+      if (num4 < 0) {
+        $(this).find("td:eq(4)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(4)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
 
-    if (num5 < 0) {
-      $(this).find("td:eq(5)").css({
-        "text-align": "right",
-        "background-color": "#fec7d5",
-        "color": "#823d44"
-      });
-    } else {
-      $(this).find("td:eq(5)").css({
-        "text-align": "right",
-        "background-color": "#c7efcd",
-        "color": "#276227"
-      });
-    }
+      if (num5 < 0) {
+        $(this).find("td:eq(5)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(5)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
 
-    if (num6 < 0) {
-      $(this).find("td:eq(6)").css({
-        "text-align": "right",
-        "background-color": "#fec7d5",
-        "color": "#823d44"
-      });
-    } else {
-      $(this).find("td:eq(6)").css({
-        "text-align": "right",
-        "background-color": "#c7efcd",
-        "color": "#276227"
-      });
-    }
-  });
+      if (num6 < 0) {
+        $(this).find("td:eq(6)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(6)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
+    });
+  }
+  else {
+    $("#Hist_DayEnd_Data_Mobile tr:not(:last)").each(function () {
+      // Get the value of the number columns
+      var num1 = parseFloat($(this).find("td:eq(1)").text());
+      var num2 = parseFloat($(this).find("td:eq(2)").text());
+      var num3 = parseFloat($(this).find("td:eq(3)").text());
+      var num4 = parseFloat($(this).find("td:eq(4)").text());
+      var num5 = parseFloat($(this).find("td:eq(5)").text());
+      var num6 = parseFloat($(this).find("td:eq(6)").text());
+
+      // Apply styles to number columns based on their values
+      if (num1 < 0) {
+        $(this).find("td:eq(1)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(1)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
+
+      if (num2 < 0) {
+        $(this).find("td:eq(2)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(2)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
+
+      if (num3 < 0) {
+        $(this).find("td:eq(3)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(3)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
+
+      if (num4 < 0) {
+        $(this).find("td:eq(4)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(4)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
+
+      if (num5 < 0) {
+        $(this).find("td:eq(5)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(5)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
+
+      if (num6 < 0) {
+        $(this).find("td:eq(6)").css({
+          "text-align": "right",
+          "background-color": "#fec7d5",
+          "color": "#823d44"
+        });
+      } else {
+        $(this).find("td:eq(6)").css({
+          "text-align": "right",
+          "background-color": "#c7efcd",
+          "color": "#276227"
+        });
+      }
+    });
+  }
 
   $('#totalRow').css('background-color', '#fcd5b4')
   $('#totalRow td').css('text-align', 'right')
@@ -305,12 +413,16 @@ function Right_Table_Heading() {
     headerRow.append(th);
   }
   thead.append(headerRow);
-  $("#Hist_Daily_table").prepend(thead);
+  if($(window).width() > 576){
+    $("#Hist_Daily_table").prepend(thead);
+  }
+  else {
+    $("#Hist_Daily_table_Mobile").prepend(thead);
+  }
 }
 
 // Right Table Data 
 function Right_Table_Data() {
-
   for (var i = 0; i < strategy_array.length; i++) {
     var key = strategy_array[i];
     var headerRow = $("<tr></tr>");
@@ -326,9 +438,19 @@ function Right_Table_Data() {
     Right_Table_Data_Array = []
   }
 
-  var table1 = document.getElementById('Hist_Daily_Data')
+  if($(window).width() > 576){
+    var table1 = document.getElementById('Hist_Daily_Data')
+  }
+  else {
+    var table1 = document.getElementById('Hist_Daily_Data_Mobile')
+  }
   for (var j = 0; j < Final_Right_Table_Data_Array.length; j++) {
-    var headerRow = $("<tr></tr>");
+    if($(window).width() > 576){
+      var headerRow = $(`<tr></tr>`);
+    }
+    else {
+      var headerRow = $(`<tr><th style="background-color:#fcd5b4">&nbsp;${strategy_array[j]}</th></tr>`);
+    }
     for (var i = 0; i < Final_Right_Table_Data_Array[0].length; i++) {
       if (parseFloat(Final_Right_Table_Data_Array[j][i]) >= 0) {
         var th = $("<td style='text-align:right;background-color:#c7efcd;color:#276227'></td>").text(Final_Right_Table_Data_Array[j][i]);
@@ -342,8 +464,15 @@ function Right_Table_Data() {
   }
 
 
-  var table = $('#Hist_Daily_Data');
-  var newRow = $('<tr>').attr('class', 'totalRow');
+  if($(window).width() > 576){
+    var table = $('#Hist_Daily_Data')
+    var newRow = $('<tr>').attr('class', 'totalRow');
+  }
+  else {
+    var table = $('#Hist_Daily_Data_Mobile')
+    var newRow = $('<tr>').attr('class', 'totalRow');
+    newRow.append($('<th>').text('TOTAL'))
+  }
   for (var i = 0; i < Final_Right_Table_Data_Array[0].length; i++) {
     var total = 0;
     // Loop through each row and calculate the sum of the numbers in the current column
@@ -363,8 +492,14 @@ function Right_Table_Data() {
 
 // Function updateTotal
 function updateTotal() {
-  $('#Hist_DayEnd_Data #totalRow').remove();
-  var table = $('#Hist_DayEnd_Data');
+  if ($(window).width() > 576) {
+    $('#Hist_DayEnd_Data #totalRow').remove();
+    var table = $('#Hist_DayEnd_Data');
+  }
+  else {
+    $('#Hist_DayEnd_Data_Mobile #totalRow').remove();
+    var table = $('#Hist_DayEnd_Data_Mobile');
+  }
   var newRow = $('<tr>').attr('id', 'totalRow');
   newRow.append($('<th>').text('TOTAL'));
   for (var i = 1; i <= 6; i++) {
@@ -387,9 +522,17 @@ function updateTotal() {
   $('#totalRow td').css('text-align', 'right')
 
 
-  $('#Hist_Daily_Data .totalRow').remove();
-  var table = $('#Hist_Daily_Data');
-  var newRow = $('<tr>').attr('class', 'totalRow');
+  if ($(window).width() > 576) {
+    $('#Hist_Daily_Data .totalRow').remove();
+    var table = $('#Hist_Daily_Data');
+    var newRow = $('<tr>').attr('class', 'totalRow');
+  }
+  else {
+    $('#Hist_Daily_Data_Mobile .totalRow').remove();
+    var table = $('#Hist_Daily_Data_Mobile');
+    var newRow = $('<tr>').attr('class', 'totalRow');
+    newRow.append($('<th>').text('TOTAL'));
+  }
   for (var i = 0; i < Final_Right_Table_Data_Array[0].length; i++) {
     var total = 0;
     // Loop through each row and calculate the sum of the numbers in the current column
@@ -460,10 +603,25 @@ $(document).ready(function () {
     var index = $($row).index();
     if (!this.checked) {
       $row.addClass("fade");
-      $('#Hist_Daily_Data tr:eq('+ index +')').addClass("fade")
+      $('#Hist_Daily_Data tr:eq(' + index + ')').addClass("fade")
     } else {
       $row.removeClass("fade");
-      $('#Hist_Daily_Data tr:eq('+ index +')').removeClass("fade")
+      $('#Hist_Daily_Data tr:eq(' + index + ')').removeClass("fade")
+    }
+
+    updateTotal()
+  });
+
+  $("#Hist_DayEnd_table_Mobile input[type='checkbox']").on("change", function () {
+    // console.log('clicked')
+    var $row = $(this).closest("tr");
+    var index = $($row).index();
+    if (!this.checked) {
+      $row.addClass("fade");
+      $('#Hist_Daily_Data_Mobile tr:eq(' + index + ')').addClass("fade")
+    } else {
+      $row.removeClass("fade");
+      $('#Hist_Daily_Data_Mobile tr:eq(' + index + ')').removeClass("fade")
     }
 
     updateTotal()
@@ -474,6 +632,9 @@ $(document).ready(function () {
     $('#Hist_DayEnd_Data').empty()
     $('#Hist_Daily_table').empty()
     $('#Hist_Daily_table').append(`<tbody id="Hist_Daily_Data"></tbody>`)
+    $('#Hist_DayEnd_Data_Mobile').empty()
+    $('#Hist_Daily_table_Mobile').empty()
+    $('#Hist_Daily_table_Mobile').append(`<tbody id="Hist_Daily_Data_Mobile"></tbody>`)
 
     Monday = {}
     Tuesday = {}
@@ -505,13 +666,48 @@ $(document).ready(function () {
       var index = $($row).index();
       if (!this.checked) {
         $row.addClass("fade");
-        $('#Hist_Daily_Data tr:eq('+ index +')').addClass("fade")
+        $('#Hist_Daily_Data tr:eq(' + index + ')').addClass("fade")
       } else {
         $row.removeClass("fade");
-        $('#Hist_Daily_Data tr:eq('+ index +')').removeClass("fade")
+        $('#Hist_Daily_Data tr:eq(' + index + ')').removeClass("fade")
       }
-  
+
       updateTotal()
     });
+
+    $("#Hist_DayEnd_table_Mobile input[type='checkbox']").on("change", function () {
+      // console.log('clicked')
+      var $row = $(this).closest("tr");
+      var index = $($row).index();
+      if (!this.checked) {
+        $row.addClass("fade");
+        $('#Hist_Daily_Data_Mobile tr:eq(' + index + ')').addClass("fade")
+      } else {
+        $row.removeClass("fade");
+        $('#Hist_Daily_Data_Mobile tr:eq(' + index + ')').removeClass("fade")
+      }
+
+      updateTotal()
+    });
+  })
+
+  if ($(window).width() > 576) {
+    $('.container-fluid').hide();
+    $('.table-container').show();
+  }
+  else {
+    $('.container-fluid').show();
+    $('.table-container').hide();
+  }
+
+  $(window).resize(function () {
+    if ($(window).width() > 576) {
+      $('.container-fluid').hide();
+      $('.table-container').show();
+    }
+    else {
+      $('.container-fluid').show();
+      $('.table-container').hide();
+    }
   })
 })

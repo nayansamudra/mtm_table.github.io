@@ -169,27 +169,36 @@ select > option {
   vertical-align: middle; /* Align the text vertically in the cell */
 }
 
-#Hist_DayEnd_table {
+#Hist_DayEnd_table,
+#Hist_DayEnd_table_Mobile {
   border-collapse: collapse;
 }
 
 #Hist_DayEnd_table th,
+#Hist_DayEnd_table_Mobile th,
 #Hist_DayEnd_table td,
+#Hist_DayEnd_table_Mobile td,
 #Hist_Daily_table th,
-#Hist_Daily_table td{
+#Hist_Daily_table_Mobile th,
+#Hist_Daily_table td,
+#Hist_Daily_table_Mobile td {
   border: 1px solid black; /* Add a 1px solid border to table cells */
   font-size: 13px;
 }
 
 #Hist_DayEnd_table thead tr,
-#Hist_Daily_table thead tr {
+#Hist_Daily_table thead tr,
+#Hist_DayEnd_table_Mobile thead tr,
+#Hist_Daily_table_Mobile thead tr {
   height: 100px;
   background-color: #fcd5b4;
 }
 
-#Hist_DayEnd_table tbody tr td:first-child {
+#Hist_DayEnd_table tbody tr td:first-child,
+#Hist_DayEnd_table_Mobile tbody tr td:first-child {
   background-color: #fcd5b4;
   font-weight: bold;
+  width: fit-content;
 }
 
 th.timestamp {
@@ -283,3 +292,13 @@ Style 4
 .fade {
   opacity: 0.5 !important;
 }
+
+#Hist_DayEnd_table_Mobile th,
+#Hist_DayEnd_table_Mobile td {
+  padding-right: 2px !important;
+}
+
+.table_fixed {
+  width: 500px;
+}
+

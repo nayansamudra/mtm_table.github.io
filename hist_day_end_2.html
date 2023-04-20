@@ -26,7 +26,7 @@
 
     <div class="table-container">
         <div class="table-fixed">
-            <table id="Hist_DayEnd_table" class="row-border table1">
+            <table id="Hist_DayEnd_table" class="row-border">
                 <thead>
                     <tr>
                         <th class="vertical-header text-center">Strategy</th>
@@ -43,10 +43,34 @@
         </div>
         <div class="table-scroll">
             <div class="scroll-container">
-                <table id="Hist_Daily_table" class="row-border table2">
+                <table id="Hist_Daily_table" class="row-border">
                     <tbody id="Hist_Daily_Data"></tbody>
                 </table>
             </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="display:none;">
+        <div class="row table_fixed">
+            <table id="Hist_DayEnd_table_Mobile" class="row-border table1">
+                <thead>
+                    <tr>
+                        <th class="vertical-header text-center">Strategy</th>
+                        <th class="vertical-header text-center">Monday</th>
+                        <th class="vertical-header text-center">Tuesday</th>
+                        <th class="vertical-header text-center">Wednesday</th>
+                        <th class="vertical-header text-center">Thursday</th>
+                        <th class="vertical-header text-center">Friday</th>
+                        <th class="vertical-header text-center">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="Hist_DayEnd_Data_Mobile"></tbody>
+            </table>
+        </div>
+        <div class="mt-4 row">
+            <table id="Hist_Daily_table_Mobile" class="row-border table2">
+                <tbody id="Hist_Daily_Data_Mobile"></tbody>
+            </table>
         </div>
     </div>
 
