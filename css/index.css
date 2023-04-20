@@ -195,14 +195,15 @@ select > option {
 }
 
 #Hist_DayEnd_table tbody tr td:first-child,
-#Hist_DayEnd_table_Mobile tbody tr td:first-child {
+#Hist_DayEnd_table_Mobile tbody tr td:first-child,
+#Hist_Daily_table_Mobile tbody tr td:first-child {
   background-color: #fcd5b4;
   font-weight: bold;
   width: fit-content;
 }
 
 th.timestamp {
-  writing-mode: vertical-rl; 
+  writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
   border: 1px solid black;
@@ -302,3 +303,20 @@ Style 4
   width: 500px;
 }
 
+.table1 td:first-child,
+.table2 td:first-child,
+.table1 th:first-child,
+.table2 th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+@media (max-width:576px) {
+  #Hist_DayEnd_table_Mobile td,
+  #Hist_DayEnd_table_Mobile th,
+  #Hist_Daily_table_Mobile td,
+  #Hist_Daily_table_Mobile th {
+    padding-right: 1px !important;
+  }
+}

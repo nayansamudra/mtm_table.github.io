@@ -595,6 +595,107 @@ $(document).ready(function () {
         $('#CE_sell_premium').attr('style', 'color:black')
       }
     }
+    else if (Account_option == 'Account_no_3') {
+
+      API_data = JSON.parse(Fetch_Hist_List[0][1])['update3']
+
+      $('#Date_option').val(moment(Hist_List[Hist_List.length - 1] * 1000).format('DD-MM-YYYY, HH:mm:ss'))
+      $('#Particular_Date_option').val(moment(DayEnd_Date[DayEnd_Date.length - 1] * 1000).format('DD-MM-YYYY, HH:mm:ss'))
+
+      if (counter_for_order_update_dropdown == 0 && API_data != undefined && Object.keys(API_data['order_updates']).length != 0) {
+        counter_for_order_update_dropdown += 1
+        var table1 = document.getElementById('order_update_option')
+        var len = Object.keys(API_data['order_updates'])
+        table1.innerHTML += row
+        for (var j = 0; j < len.length; j++) {
+          var row = `<option id="${j}_order_update" value="${len[j]}">${len[j]}</option>`
+          table1.innerHTML += row
+        }
+      }
+
+      if (counter_for_log_update_dropdown == 0 && API_data != undefined && Object.keys(API_data['log_update']).length != 0) {
+        counter_for_log_update_dropdown += 1
+        var table1 = document.getElementById('log_update_option')
+        var len = Object.keys(API_data['log_update'])
+        for (var j = 0; j < len.length; j++) {
+          var row = `<option id="${j}_log_update" value="${len[j]}">${len[j]}</option>`
+          table1.innerHTML += row
+        }
+      }
+
+      $('#Radio_1').click()
+      // order_update_left_table('ALL')
+      all_position_right_table()
+      net_position_right_table()
+
+      if ($(document).width() < 975) {
+        if ($('#flexSwitchCheckChecked').is(":checked")) {
+          $('#Table_2_Column').show()
+          $('#ChartDatatable_container').hide()
+        }
+        else {
+          $('#flexSwitchCheckChecked').prop('checked', true)
+          console.log('checked')
+          $('#Table_2_Column').show()
+          $('#ChartDatatable_container').hide()
+        }
+      }
+      else {
+        $('#Table_2_Column').show()
+        $('#ChartDatatable_container').show()
+      }
+
+      x_axis = []
+      y_axis = []
+
+      if (API_data != undefined && API_data['live_pnl'].length != 0) {
+        for (var i = 0; i < API_data['live_pnl'].length; i++) {
+          x_axis.push(moment.unix(Object.keys(API_data['live_pnl'][i])[0]).format('h:mm'))
+          y_axis.push(Object.values(API_data['live_pnl'][i])[0])
+          live_mtm = Object.values(API_data['live_pnl'][i])[0]
+        }
+      }
+
+      if (API_data != undefined) { $('#BankNifty').text(API_data['bank_nifty']) }
+      if (API_data != undefined) { $('#Nifty').text(API_data['nifty50']) }
+      if (API_data != undefined) { $('#percentage_pnl').text(API_data['percentage_change']) }
+      if (API_data != undefined) { $('#CE_sell_premium').text(Math.abs(API_data['CE_sell_premium']).toLocaleString('en-IN')) }
+      if (API_data != undefined) { $('#PE_sell_premium').text(Math.abs(API_data['PE_sell_premium']).toLocaleString('en-IN')) }
+      if (API_data != undefined && API_data['live_pnl'].length != 0) { $('#Live_MTM').text(live_mtm) }
+
+      function addData_9(chart) {
+        chart.data.labels = x_axis;
+        chart.data.datasets.forEach((dataset) => {
+          dataset.data = y_axis;
+        })
+        chart.update();
+      }
+
+      addData_9(chart_1)
+
+      if (parseFloat($('#Live_MTM').text()) > 0) {
+        $('#Live_MTM').attr('style', 'color:green')
+      }
+      else if (parseFloat($('#Live_MTM').text()) < 0) {
+        $('#Live_MTM').attr('style', 'color:red')
+      }
+
+      if (parseFloat($('#percentage_pnl').text()) > 0) {
+        $('#percentage').attr('style', 'color:green')
+      }
+      else if (parseFloat($('#percentage_pnl').text()) < 0) {
+        $('#percentage').attr('style', 'color:red')
+      }
+
+      if (parseFloat(Math.abs(API_data['CE_sell_premium'])) > parseFloat(Math.abs(API_data['PE_sell_premium']))) {
+        $('#CE_sell_premium').attr('style', 'color:black;font-weight:bold')
+        $('#PE_sell_premium').attr('style', 'color:black')
+      }
+      else if (parseFloat(Math.abs(API_data['CE_sell_premium'])) < parseFloat(Math.abs(API_data['PE_sell_premium']))) {
+        $('#PE_sell_premium').attr('style', 'color:black;font-weight:bold')
+        $('#CE_sell_premium').attr('style', 'color:black')
+      }
+    }
   })
 
   $('#Radio_1').click(() => {
@@ -825,6 +926,87 @@ $(document).ready(function () {
         $('#CE_sell_premium').attr('style', 'color:black')
       }
     }
+    else if (Account_option == 'Account_no_3') {
+      API_data = JSON.parse(Fetch_Hist_List[0][1])['update3']
+      // API_data = Fetch_Hist_List_for_particular_date[1]['update2']
+      all_position_right_table()
+      net_position_right_table()
+      // order_update_left_table('ALL')
+      $('#Radio_1').click()
+
+      counter_for_log_update_dropdown = counter_for_order_update_dropdown = 0
+
+      if (counter_for_order_update_dropdown == 0 && API_data != undefined && Object.keys(API_data['order_updates']).length != 0) {
+        counter_for_order_update_dropdown += 1
+        var table1 = document.getElementById('order_update_option')
+        var len = Object.keys(API_data['order_updates'])
+        table1.innerHTML += row
+        for (var j = 0; j < len.length; j++) {
+          var row = `<option id="${j}_order_update" value="${len[j]}">${len[j]}</option>`
+          table1.innerHTML += row
+        }
+      }
+
+      if (counter_for_log_update_dropdown == 0 && API_data != undefined && Object.keys(API_data['log_update']).length != 0) {
+        counter_for_log_update_dropdown += 1
+        var table1 = document.getElementById('log_update_option')
+        var len = Object.keys(API_data['log_update'])
+        for (var j = 0; j < len.length; j++) {
+          var row = `<option id="${j}_log_update" value="${len[j]}">${len[j]}</option>`
+          table1.innerHTML += row
+        }
+      }
+
+      x_axis = []
+      y_axis = []
+
+      if (API_data != undefined && API_data['live_pnl'].length != 0) {
+        for (var i = 0; i < API_data['live_pnl'].length; i++) {
+          x_axis.push(moment.unix(Object.keys(API_data['live_pnl'][i])[0]).format('h:mm'))
+          y_axis.push(Object.values(API_data['live_pnl'][i])[0])
+          live_mtm = Object.values(API_data['live_pnl'][i])[0]
+        }
+      }
+
+      if (API_data != undefined) { $('#BankNifty').text(API_data['bank_nifty']) }
+      if (API_data != undefined) { $('#Nifty').text(API_data['nifty50']) }
+      if (API_data != undefined) { $('#percentage_pnl').text(API_data['percentage_change']) }
+      if (API_data != undefined) { $('#CE_sell_premium').text(Math.abs(API_data['CE_sell_premium']).toLocaleString('en-IN')) }
+      if (API_data != undefined) { $('#PE_sell_premium').text(Math.abs(API_data['PE_sell_premium']).toLocaleString('en-IN')) }
+      if (API_data != undefined && API_data['live_pnl'].length != 0) { $('#Live_MTM').text(live_mtm) }
+
+      function addData_8(chart) {
+        chart.data.labels = x_axis;
+        chart.data.datasets.forEach((dataset) => {
+          dataset.data = y_axis;
+        })
+        chart.update();
+      }
+      addData_8(chart_1)
+
+      if (parseFloat($('#Live_MTM').text()) > 0) {
+        $('#Live_MTM').attr('style', 'color:green')
+      }
+      else if (parseFloat($('#Live_MTM').text()) < 0) {
+        $('#Live_MTM').attr('style', 'color:red')
+      }
+
+      if (parseFloat($('#percentage_pnl').text()) > 0) {
+        $('#percentage').attr('style', 'color:green')
+      }
+      else if (parseFloat($('#percentage_pnl').text()) < 0) {
+        $('#percentage').attr('style', 'color:red')
+      }
+
+      if (parseFloat(Math.abs(API_data['CE_sell_premium'])) > parseFloat(Math.abs(API_data['PE_sell_premium']))) {
+        $('#CE_sell_premium').attr('style', 'color:black;font-weight:bold')
+        $('#PE_sell_premium').attr('style', 'color:black')
+      }
+      else if (parseFloat(Math.abs(API_data['CE_sell_premium'])) < parseFloat(Math.abs(API_data['PE_sell_premium']))) {
+        $('#PE_sell_premium').attr('style', 'color:black;font-weight:bold')
+        $('#CE_sell_premium').attr('style', 'color:black')
+      }
+    }
   })
 
   $('#Particular_Date_option').change(() => {
@@ -990,6 +1172,87 @@ $(document).ready(function () {
         chart.update();
       }
       addData_6(chart_1)
+
+      if (parseFloat($('#Live_MTM').text()) > 0) {
+        $('#Live_MTM').attr('style', 'color:green')
+      }
+      else if (parseFloat($('#Live_MTM').text()) < 0) {
+        $('#Live_MTM').attr('style', 'color:red')
+      }
+
+      if (parseFloat($('#percentage_pnl').text()) > 0) {
+        $('#percentage').attr('style', 'color:green')
+      }
+      else if (parseFloat($('#percentage_pnl').text()) < 0) {
+        $('#percentage').attr('style', 'color:red')
+      }
+
+      if (parseFloat(Math.abs(API_data['CE_sell_premium'])) > parseFloat(Math.abs(API_data['PE_sell_premium']))) {
+        $('#CE_sell_premium').attr('style', 'color:black;font-weight:bold')
+        $('#PE_sell_premium').attr('style', 'color:black')
+      }
+      else if (parseFloat(Math.abs(API_data['CE_sell_premium'])) < parseFloat(Math.abs(API_data['PE_sell_premium']))) {
+        $('#PE_sell_premium').attr('style', 'color:black;font-weight:bold')
+        $('#CE_sell_premium').attr('style', 'color:black')
+      }
+    }
+    else if (Account_option == 'Account_no_3') {
+      API_data = JSON.parse(Fetch_Hist_List[0][1])['update3']
+      // API_data = Fetch_Hist_List_for_particular_date[1]['update2']
+      all_position_right_table()
+      net_position_right_table()
+      // order_update_left_table('ALL')
+      $('#Radio_1').click()
+
+      counter_for_log_update_dropdown = counter_for_order_update_dropdown = 0
+
+      if (counter_for_order_update_dropdown == 0 && API_data != undefined && Object.keys(API_data['order_updates']).length != 0) {
+        counter_for_order_update_dropdown += 1
+        var table1 = document.getElementById('order_update_option')
+        var len = Object.keys(API_data['order_updates'])
+        table1.innerHTML += row
+        for (var j = 0; j < len.length; j++) {
+          var row = `<option id="${j}_order_update" value="${len[j]}">${len[j]}</option>`
+          table1.innerHTML += row
+        }
+      }
+
+      if (counter_for_log_update_dropdown == 0 && API_data != undefined && Object.keys(API_data['log_update']).length != 0) {
+        counter_for_log_update_dropdown += 1
+        var table1 = document.getElementById('log_update_option')
+        var len = Object.keys(API_data['log_update'])
+        for (var j = 0; j < len.length; j++) {
+          var row = `<option id="${j}_log_update" value="${len[j]}">${len[j]}</option>`
+          table1.innerHTML += row
+        }
+      }
+
+      x_axis = []
+      y_axis = []
+
+      if (API_data != undefined && API_data['live_pnl'].length != 0) {
+        for (var i = 0; i < API_data['live_pnl'].length; i++) {
+          x_axis.push(moment.unix(Object.keys(API_data['live_pnl'][i])[0]).format('h:mm'))
+          y_axis.push(Object.values(API_data['live_pnl'][i])[0])
+          live_mtm = Object.values(API_data['live_pnl'][i])[0]
+        }
+      }
+
+      if (API_data != undefined) { $('#BankNifty').text(API_data['bank_nifty']) }
+      if (API_data != undefined) { $('#Nifty').text(API_data['nifty50']) }
+      if (API_data != undefined) { $('#percentage_pnl').text(API_data['percentage_change']) }
+      if (API_data != undefined) { $('#CE_sell_premium').text(Math.abs(API_data['CE_sell_premium']).toLocaleString('en-IN')) }
+      if (API_data != undefined) { $('#PE_sell_premium').text(Math.abs(API_data['PE_sell_premium']).toLocaleString('en-IN')) }
+      if (API_data != undefined && API_data['live_pnl'].length != 0) { $('#Live_MTM').text(live_mtm) }
+
+      function addData_7(chart) {
+        chart.data.labels = x_axis;
+        chart.data.datasets.forEach((dataset) => {
+          dataset.data = y_axis;
+        })
+        chart.update();
+      }
+      addData_7(chart_1)
 
       if (parseFloat($('#Live_MTM').text()) > 0) {
         $('#Live_MTM').attr('style', 'color:green')

@@ -192,7 +192,7 @@ function Printing_to_table() {
     var table = $('#Hist_DayEnd_Data_Mobile')
   }
   var newRow = $('<tr>').attr('id', 'totalRow');
-  newRow.append($('<th>').text('TOTAL'));
+  newRow.append($('<td style="text-align:left">').text('TOTAL'));
   for (var i = 1; i <= 6; i++) {
     var total = 0;
     // Loop through each row and calculate the sum of the numbers in the current column
@@ -400,7 +400,7 @@ function Printing_to_table() {
   }
 
   $('#totalRow').css('background-color', '#fcd5b4')
-  $('#totalRow td').css('text-align', 'right')
+  $('#totalRow td:not(:first)').css('text-align', 'right')
 }
 
 // Right Table Heading
@@ -476,7 +476,7 @@ function Right_Table_Data() {
   else {
     var table = $('#Hist_Daily_Data_Mobile')
     var newRow = $('<tr>').attr('class', 'totalRow');
-    newRow.append($('<th>').text('TOTAL'))
+    newRow.append($('<td style="text-align:left">').text('TOTAL'))
   }
   for (var i = 0; i < Final_Right_Table_Data_Array[0].length; i++) {
     var total = 0;
@@ -492,7 +492,7 @@ function Right_Table_Data() {
   table.append(newRow);
 
   $('.totalRow').css('background-color', '#fcd5b4')
-  $('.totalRow td').css('text-align', 'right')
+  $('.totalRow td:not(:first)').css('text-align', 'right')
 }
 
 // Function updateTotal
@@ -506,7 +506,7 @@ function updateTotal() {
     var table = $('#Hist_DayEnd_Data_Mobile');
   }
   var newRow = $('<tr>').attr('id', 'totalRow');
-  newRow.append($('<th>').text('TOTAL'));
+  newRow.append($('<td style="text-align:left">').text('TOTAL'));
   for (var i = 1; i <= 6; i++) {
     var total = 0;
     // Loop through each row and calculate the sum of the numbers in the current column
@@ -524,7 +524,7 @@ function updateTotal() {
   table.append(newRow);
 
   $('#totalRow').css('background-color', '#fcd5b4')
-  $('#totalRow td').css('text-align', 'right')
+  $('#totalRow td:not(:first)').css('text-align', 'right')
 
 
   if ($(window).width() > 576) {
@@ -536,7 +536,7 @@ function updateTotal() {
     $('#Hist_Daily_Data_Mobile .totalRow').remove();
     var table = $('#Hist_Daily_Data_Mobile');
     var newRow = $('<tr>').attr('class', 'totalRow');
-    newRow.append($('<th>').text('TOTAL'));
+    newRow.append($('<td style="text-align: left">').text('TOTAL'));
   }
   for (var i = 0; i < Final_Right_Table_Data_Array[0].length; i++) {
     var total = 0;
@@ -554,7 +554,7 @@ function updateTotal() {
   table.append(newRow);
 
   $('.totalRow').css('background-color', '#fcd5b4')
-  $('.totalRow td').css('text-align', 'right')
+  $('.totalRow td:not(:first)').css('text-align', 'right')
 
 }
 
@@ -699,24 +699,20 @@ $(document).ready(function () {
   if ($(window).width() > 576) {
     $('.container-fluid').hide();
     $('.table-container').show();
-    // $('body').attr('style', 'overflow-x: hidden !important;font-family: Outfit;')
   }
   else {
     $('.container-fluid').show();
     $('.table-container').hide();
-    // $('body').attr('style', 'overflow-x: visible !important;font-family: Outfit;')
   }
 
   $(window).resize(function () {
     if ($(window).width() > 576) {
       $('.container-fluid').hide();
       $('.table-container').show();
-      // $('body').attr('style', 'overflow-x: hidden !important;font-family: Outfit;')
     }
     else {
       $('.container-fluid').show();
       $('.table-container').hide();
-      // $('body').attr('style', 'overflow-x: visible !important;font-family: Outfit;')
     }
   })
 })
