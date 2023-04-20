@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body style="overflow-x:hidden; font-family: Outfit;">
     <div class="pt-1" style="width: 100%;" id="Top_Bar">
         <div class="row d-flex justify-content-start align-content-between mx-2 mb-2">
             <div class="col-auto bg-color rounded p-0 mt-2"><b>Account&nbsp;</b>
@@ -51,8 +51,8 @@
     </div>
 
     <div class="container-fluid" style="display:none;">
-        <div class="row table_fixed">
-            <table id="Hist_DayEnd_table_Mobile" class="row-border table1">
+        <div class="row table_fixed" style="width: 100vw;overflow-x: auto;">
+            <table id="Hist_DayEnd_table_Mobile" class="row-border table1" style="white-space: nowrap;width: max-content;table-layout: fixed;">
                 <thead>
                     <tr>
                         <th class="vertical-header text-center">Strategy</th>
@@ -67,8 +67,8 @@
                 <tbody id="Hist_DayEnd_Data_Mobile"></tbody>
             </table>
         </div>
-        <div class="mt-4 row">
-            <table id="Hist_Daily_table_Mobile" class="row-border table2">
+        <div class="mt-4 row" style="width: 100vw;overflow-x: auto;">
+            <table id="Hist_Daily_table_Mobile" class="row-border table2" style="white-space: nowrap;width: max-content;table-layout: fixed;">
                 <tbody id="Hist_Daily_Data_Mobile"></tbody>
             </table>
         </div>
